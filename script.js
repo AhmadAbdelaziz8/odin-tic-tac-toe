@@ -1,3 +1,10 @@
+const initializeGame = (function () {  
+  let playerSelection ='';
+  function chooseLabel(){
+    playerSelection = 
+  }
+})();
+
 const gameLogic = (function () {
   // Create a 3x3 array with empty strings
   let board = [];
@@ -34,7 +41,8 @@ const gameLogic = (function () {
 
 const render = (function () {
   // render the board
-  let board = document.querySelector(".gameboard");
+  let boardContainer = document.querySelector(".gameboard");
+
   gameLogic.board.forEach((row, rowIndex) => {
     row.forEach((cell, colIndex) => {
       let cellContainer = document.createElement("div");
@@ -42,9 +50,12 @@ const render = (function () {
       cellContainer.textContent = cell;
       cellContainer.dataset.row = rowIndex;
       cellContainer.dataset.col = colIndex;
-      board.append(cellContainer);
+      boardContainer.append(cellContainer);
     });
   });
+  xButton = document.querySelector('X')
+  oButton = document.querySelector('O')
+  
 })();
 
 // Example usage of computerChoice (optional)

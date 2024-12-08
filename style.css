@@ -4,6 +4,15 @@
   box-sizing: border-box;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Ensure body takes full viewport height */
+  font-family: Arial, sans-serif; /* Improve font */
+}
+
 .gameboard {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -11,9 +20,44 @@
   background-color: black;
   width: 500px;
   height: 500px;
+  margin-top: 20px; /* Add margin above gameboard */
 }
 
-.cell{
-    background-color: brown;
-    border: 15px solid ;
+.cell {
+  background-color: brown;
+  border: 15px solid;
+  /* color: white; */
+}
+
+.choose {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content within the card */
+  gap: 10px; /* Add gap between elements */
+}
+
+.choose p {
+  font-size: 1.2em; /* Increase font size for readability */
+}
+
+.choose button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1em;
+  cursor: pointer;
+}
+
+.choose .O {
+  background-color: red;
+  color: white;
+}
+
+.choose .X {
+  background-color: blue;
+  color: white;
 }
