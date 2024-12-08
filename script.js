@@ -179,6 +179,3 @@ const render = (function () {
 
   return { updateBoard };
 })();
-
-// Example usage of computerChoice (optional)
-console.log(gameLogic.board);

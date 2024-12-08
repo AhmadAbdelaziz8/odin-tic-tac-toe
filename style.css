@@ -109,7 +109,19 @@ body {
 
 .result {
   margin-top: 20px;
+  margin-bottom: 20px;
   font-size: 1.4em;
   font-weight: bold;
   color: #333;
+}
+
+.reset {
+  background-color: rgba(0, 128, 111, 0.644);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 15px; /* Make buttons circular */
+  font-size: 1.6em; /* Increase font size */
+  font-weight: bold;
+  cursor: pointer;
 }
