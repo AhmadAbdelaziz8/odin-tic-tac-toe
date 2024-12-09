@@ -5,8 +5,11 @@ const initializeGame = (function () {
   let playerSelection = "";
 
   function chooseLabel(label) {
-    playerSelection = label;
-    buttonsContainer.style.display = "none"; // Hide the buttons after selection
+    // console.log(gameLogic.board);
+    playerSelection = label; // Update the playerSelection
+    if (label) {
+      buttonsContainer.style.display = "none"; // Hide buttons after selection
+    }
   }
 
   function getPlayerSelection() {
@@ -20,6 +23,7 @@ const initializeGame = (function () {
 })();
 
 const gameLogic = (function () {
+  // initial game board
   let board = [
     ["", "", ""],
     ["", "", ""],
@@ -28,13 +32,16 @@ const gameLogic = (function () {
 
   return { board, humanChoice, computerChoice };
 
+  // set the Human choice function
   function humanChoice(row, col) {
-    const choice = initializeGame.getPlayerSelection();
-    if (board[row][col] === "") {
-      board[row][col] = choice;
-    }
+    let choice = initializeGame.getPlayerSelection();
+    // if (board[row][col] === "") {
+    board[row][col] = choice;
+    console.log(board);
+    // }
   }
 
+  // generate a Random Computer choice
   function computerChoice() {
     const choice = initializeGame.getPlayerSelection() === "X" ? "O" : "X";
     let emptyCells = [];
@@ -53,40 +60,47 @@ const gameLogic = (function () {
   }
 })();
 
+// create Module concerned with rendering the board
 const render = (function () {
-  const boardContainer = document.querySelector(".gameboard");
-  const resultContainer = document.querySelector(".result");
-  const chooseContainer = document.querySelector(".choose");
-  const resetButton = document.querySelector(".reset");
+  // get the HTML buttons and container
+  let boardContainer = document.querySelector(".gameboard");
+  let resultContainer = document.querySelector(".result");
+  let chooseContainer = document.querySelector(".choose");
+  let resetButton = document.querySelector(".reset");
 
   function updateBoard() {
     boardContainer.innerHTML = "";
     gameLogic.board.forEach((row, rowIndex) => {
       row.forEach((cell, colIndex) => {
-        const cellContainer = document.createElement("div");
+        let cellContainer = document.createElement("div");
         cellContainer.classList.add("cell");
         cellContainer.textContent = cell;
         cellContainer.dataset.row = rowIndex;
         cellContainer.dataset.col = colIndex;
 
         cellContainer.addEventListener("click", () => {
-          // Check if player has chosen a label
-          if (initializeGame.getPlayerSelection() === "") {
-            return; // Don't allow move if no label chosen
+          let selection = initializeGame.getPlayerSelection();
+          if (selection === "") {
+            alert("Please choose X or O to start!");
+            return;
           }
 
-          if (cell === "" && !isGameOver()) {
-            gameLogic.humanChoice(rowIndex, colIndex);
+          // Always check the latest state of the board
+          if (gameLogic.board[rowIndex][colIndex] === "" && !isGameOver()) {
+            gameLogic.humanChoice(rowIndex, colIndex); // Update the board
             updateBoard();
+
             if (!isGameOver()) {
-              gameLogic.computerChoice();
+              gameLogic.computerChoice(); // Computer makes a move
               updateBoard();
             }
+
             if (isGameOver()) {
               displayResult();
             }
           }
         });
+
         boardContainer.appendChild(cellContainer);
       });
     });
@@ -146,10 +160,23 @@ const render = (function () {
       ["", "", ""],
     ];
     initializeGame.chooseLabel(""); // Reset player selection
-    chooseContainer.style.display = "flex"; // Show the choose container again
-    resultContainer.textContent = "";
-    // getPlayerSelection();
-    updateBoard();
+    chooseContainer.style.display = "flex"; // Show the selection buttons again
+    resultContainer.textContent = ""; // Clear the result text
+
+    // Remove existing event listeners
+    let cells = document.querySelectorAll(".cell");
+    cells.forEach((cell) => {
+      cell.removeEventListener("click", () => {});
+      console.log("Event listener removed from cell:", cell);
+    });
+
+    gameLogic.board.forEach((row) => {
+      row.forEach((cell) => {
+        cell = "";
+      });
+    });
+
+    // updateBoard();
   }
 
   updateBoard();
