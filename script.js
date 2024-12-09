@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Render the board
   function renderBoard() {
     boardContainer.innerHTML = ""; // Clear previous board
-    
+
     board.forEach((row, rowIndex) => {
       row.forEach((cell, colIndex) => {
         const cellElement = document.createElement("div");
@@ -43,6 +43,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Add click event for empty cells
         cellElement.addEventListener("click", () => {
+          if (currentPlayer === "") {
+            alert('Please pick "O" or "X" to start the game.');
+            return; // Stop execution if no symbol is chosen
+          }
           if (!gameOver && cell === "") {
             makeMove(rowIndex, colIndex);
           }
