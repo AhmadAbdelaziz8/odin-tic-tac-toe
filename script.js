@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Render the board
   function renderBoard() {
     boardContainer.innerHTML = ""; // Clear previous board
-
+    
     board.forEach((row, rowIndex) => {
       row.forEach((cell, colIndex) => {
         const cellElement = document.createElement("div");
